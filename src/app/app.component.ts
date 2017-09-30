@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,10 @@ export class AppComponent {
   todo: string;
   filterType = 'All';
   toggleAll = false;
+
+  constructor(private http: HttpClient) {
+
+  }
 
   addTodos() {
     if (this.todo) {

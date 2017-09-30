@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   inputHint = 'What needs to be done?';
   colSpan = 2;
+  todos = [];
+
+  addTodos(value) {
+    this.todos.push(value);
+  }
 }

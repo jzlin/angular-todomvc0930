@@ -21,7 +21,7 @@
     </ul>
   </section>
   <!-- This footer should hidden by default and shown when there are todos -->
-  <app-footer [data]="todos" (clearBtnClick)="clearCompleted()"></app-footer>
+  <app-footer [data]="todos" (clearBtnClick)="clearCompleted()" #footer></app-footer>
 </section>
 <footer class="info">
   <p>Double-click to edit a todo</p>
@@ -38,3 +38,5 @@
     <td>One Column</td>
   </tr>
 </table>
+
+<button (click)="footer.logFooter()">log footer</button>

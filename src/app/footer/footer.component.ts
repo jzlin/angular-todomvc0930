@@ -27,4 +27,8 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  logFooter() {
+    console.log('log from footer');
+  }
+
 }

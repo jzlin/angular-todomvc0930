@@ -13,7 +13,7 @@ export class AppComponent {
 
   addTodos() {
     if (this.todo) {
-      this.todos.push({
+      this.todos = this.todos.concat({
         text: this.todo,
         done: false
       });

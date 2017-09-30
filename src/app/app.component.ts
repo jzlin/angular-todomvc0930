@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,25 +6,37 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   inputHint = 'What needs to be done?';
   colSpan = 2;
   todos = [];
   todo: string;
   filterType = 'All';
   toggleAll = false;
+  apiBase = 'http://localhost:3000/todos';
 
   constructor(private http: HttpClient) {
 
   }
 
+  ngOnInit() {
+    this.http.get<any[]>(this.apiBase)
+      .subscribe(data => {
+        this.todos = data;
+      })
+  }
+
   addTodos() {
     if (this.todo) {
-      this.todos = this.todos.concat({
+      let newTodo = {
         text: this.todo,
         done: false
-      });
-      this.todo = '';
+      };
+      this.http.post(this.apiBase, newTodo)
+        .subscribe(data => {
+          this.todos = this.todos.concat(data);
+          this.todo = '';
+        });
     }
   }
 
@@ -33,7 +45,10 @@ export class AppComponent {
   }
 
   clearCompleted() {
-    this.todos = this.todos.filter(x => !x.done);
+    this.todos.filter(x => x.done)
+      .forEach(item => {
+        this.removeTodo(item);
+      });
   }
 
   updateFilter($event) {
@@ -41,12 +56,21 @@ export class AppComponent {
   }
 
   toggleAllChange() {
-    this.todos.forEach(x => {
-      x.done = this.toggleAll;
+    this.todos.forEach(item => {
+      item.done = this.toggleAll;
+      this.todoUpdate(item);
     });
   }
 
   removeTodo(item) {
-    this.todos = this.todos.filter(x => x !== item);
+    this.http.delete(`${this.apiBase}/${item.id}`)
+      .subscribe(() => {
+        this.todos = this.todos.filter(x => x !== item);
+      });
+  }
+
+  todoUpdate(item) {
+    this.http.put(`${this.apiBase}/${item.id}`, item)
+      .subscribe();
   }
 }

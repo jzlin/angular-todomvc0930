@@ -9,10 +9,12 @@ export class AppComponent {
   inputHint = 'What needs to be done?';
   colSpan = 2;
   todos = [];
+  todo: string;
 
-  addTodos(value) {
-    if (value) {
-      this.todos.push(value);
+  addTodos() {
+    if (this.todo) {
+      this.todos.push(this.todo);
+      this.todo = '';
     }
   }
 }

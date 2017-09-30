@@ -72,4 +72,20 @@ export class AppComponent implements OnInit {
     this.dataSvc.updateTodo(item)
       .subscribe();
   }
+
+  enterEditMode(item) {
+    item.editText = item.text;
+    item.isEditMode = true;
+  }
+
+  leaveEditMode(item) {
+    delete item.isEditMode;
+    this.todoUpdate(item);
+  }
+
+  saveEdit(item) {
+    item.text = item.editText;
+    delete item.editText;
+    this.leaveEditMode(item);
+  }
 }

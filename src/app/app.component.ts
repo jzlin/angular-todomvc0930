@@ -40,4 +40,8 @@ export class AppComponent {
       x.done = this.toggleAll;
     });
   }
+
+  removeTodo(item) {
+    this.todos = this.todos.filter(x => x !== item);
+  }
 }

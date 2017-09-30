@@ -24,4 +24,8 @@ export class AppComponent {
   todoModelChange($event) {
     this.todo = $event;
   }
+
+  clearCompleted() {
+    this.todos = this.todos.filter(x => !x.done);
+  }
 }

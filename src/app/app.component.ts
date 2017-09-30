@@ -10,6 +10,7 @@ export class AppComponent {
   colSpan = 2;
   todos = [];
   todo: string;
+  filterType = 'All';
 
   addTodos() {
     if (this.todo) {
@@ -27,5 +28,9 @@ export class AppComponent {
 
   clearCompleted() {
     this.todos = this.todos.filter(x => !x.done);
+  }
+
+  updateFilter($event) {
+    this.filterType = $event;
   }
 }
